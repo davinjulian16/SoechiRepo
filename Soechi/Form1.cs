@@ -132,6 +132,7 @@ namespace Soechi
                         {
                             int discPrcnt = Convert.ToInt32(lDisc[i].Trim('%'));
                             discAmt = discAmt + (tempDiscon * discPrcnt / 100);
+                            tempDiscon = qty * unitPrice - discAmt;
                         }
                     }
                     else
