@@ -118,20 +118,28 @@ namespace Soechi
                 int discAmt = 0;
                 int qty = Convert.ToInt32(txtQty.Text);
                 int unitPrice = Convert.ToInt32(txtUnitPrice.Text);
-                foreach (string item in lDisc)
+                for (int i = 0; i < lDisc.Count(); i++)
                 {
-                    if (item.Contains('%'))
+                    if (lDisc[i].Contains('%'))
                     {
-                        int discPrcnt = Convert.ToInt32(item.Trim('%'));
-                        discAmt = discAmt + ((qty * unitPrice) * discPrcnt / 100);
-                        txtDiscAmount.Text = discAmt.ToString();
+                        if (i == 0)
+                        {
+                            int discPrcnt = Convert.ToInt32(lDisc[i].Trim('%'));
+                            discAmt = discAmt + ((qty * unitPrice) * discPrcnt / 100);
+                        }
+                        else
+                        {
+                            int discPrcnt = Convert.ToInt32(lDisc[i].Trim('%'));
+                            discAmt = discAmt + (discAmt * discPrcnt / 100);
+                        }
                     }
                     else
                     {
-                        txtDiscAmount.Text = txtDiscount.Text;
+                        discAmt = discAmt + Convert.ToInt32(lDisc[i]);
                     }
                 }
 
+                txtDiscAmount.Text = discAmt.ToString();
             }
             catch (Exception e)
             {
